@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyFlow Weather</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-decor">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <main class="dashboard-container">
+        <!-- Header / Search Bar -->
+        <header class="search-header">
+            <div class="logo">
+                <span class="logo-icon">☁️</span>
+                <h1>SkyFlow</h1>
+            </div>
+            <form id="search-form" class="search-box">
+                <input type="text" id="city-input" placeholder="Search city (e.g., London, Tokyo, Odisha)..." autocomplete="off" required>
+                <button type="submit" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </button>
+            </form>
+        </header>
+
+        <!-- Main Content Area -->
+        <section class="weather-content">
+            <!-- Loading Spinner -->
+            <div id="loader" class="loader-container hidden">
+                <div class="spinner"></div>
+                <p>Retrieving atmospheric data...</p>
+            </div>
+
+            <div id="weather-data-wrapper" class="grid-layout">
+                <!-- Left Column: Current Weather Card -->
+                <div class="card current-weather-card">
+                    <div class="card-header">
+                        <div class="location-info">
+                            <h2 id="city-name">Odisha</h2>
+                            <p id="current-date">Tuesday, June 16</p>
+                        </div>
+                        <span id="weather-emoji" class="large-emoji">☀️</span>
+                    </div>
+
+                    <div class="temp-display">
+                        <h3 id="current-temp">32°C</h3>
+                        <p id="weather-description">Sunny & Clear</p>
+                    </div>
+
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <span class="detail-icon">💧</span>
+                            <div class="detail-text">
+                                <span class="detail-label">Humidity</span>
+                                <span id="humidity-val" class="detail-val">65%</span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-icon">💨</span>
+                            <div class="detail-text">
+                                <span class="detail-label">Wind Speed</span>
+                                <span id="wind-val" class="detail-val">12 km/h</span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-icon">🌡️</span>
+                            <div class="detail-text">
+                                <span class="detail-label">Feels Like</span>
+                                <span id="feels-like-val" class="detail-val">34°C</span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-icon">☀️</span>
+                            <div class="detail-text">
+                                <span class="detail-label">UV Index</span>
+                                <span id="uv-val" class="detail-val">High (7)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Forecast & Details -->
+                <div class="right-column">
+                    <!-- Forecast Section -->
+                    <div class="card forecast-card">
+                        <h4 class="section-title">5-Day Outlook</h4>
+                        <div id="forecast-grid" class="forecast-grid">
+                            <!-- Populated via JavaScript -->
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
