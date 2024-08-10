@@ -132,8 +132,34 @@ async function fetchWeatherData(city) {
     weatherDataWrapper.classList.add('hidden');
     loader.classList.remove('hidden');
 
+    let queryCity = city.trim();
+
+    // Map common state/region names to their major city counterparts for accurate weather
+    const aliases = {
+        "odisha": "Bhubaneswar",
+        "orissa": "Bhubaneswar",
+        "india": "New Delhi",
+        "delhi": "New Delhi",
+        "maharashtra": "Mumbai",
+        "karnataka": "Bengaluru",
+        "bangalore": "Bengaluru",
+        "tamilnadu": "Chennai",
+        "tamil nadu": "Chennai",
+        "westbengal": "Kolkata",
+        "west bengal": "Kolkata",
+        "gujarat": "Ahmedabad",
+        "punjab": "Chandigarh",
+        "haryana": "Chandigarh",
+        "telangana": "Hyderabad"
+    };
+
+    const cleanQuery = queryCity.toLowerCase().replace(/\s+/g, ' ');
+    if (aliases[cleanQuery]) {
+        queryCity = aliases[cleanQuery];
+    }
+
     try {
-        const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=en&format=json`;
+        const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(queryCity)}&count=1&language=en&format=json`;
         const geoRes = await fetch(geoUrl);
         const geoData = await geoRes.json();
 
@@ -189,7 +215,7 @@ async function fetchWeatherData(city) {
 
     } catch (error) {
         console.warn("Using procedural weather engine fallback due to:", error.message);
-        const fallbackData = generateProceduralWeather(city);
+        const fallbackData = generateProceduralWeather(queryCity);
         renderWeather(fallbackData);
     } finally {
         loader.classList.add('hidden');
@@ -208,5 +234,5 @@ searchForm.addEventListener('submit', (e) => {
 
 // Initial Load
 document.addEventListener('DOMContentLoaded', () => {
-    fetchWeatherData('Odisha');
+    fetchWeatherData('Bhubaneswar');
 });
